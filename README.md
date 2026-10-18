@@ -1,61 +1,219 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Desa Sukamaju - Sistem Informasi Desa
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem informasi desa untuk Desa Sukamaju yang dibangun dengan Laravel 12 dan Filament. Aplikasi ini menampilkan profil desa, berita, UMKM, produk, peta desa, serta berbagai infografis seperti penduduk, APBDes, stunting, bansos, IDM, dan SDGs.
 
-## About Laravel
+## Fitur utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Halaman profil desa
+- Daftar berita dan detail berita per slug
+- Katalog UMKM dan detail produk
+- Infografis desa berbasis data statistik
+- Peta desa berbasis Google Maps
+- Panel admin menggunakan Filament
+- Struktur backend berbasis Laravel Eloquent Models
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Stack teknologi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Bahasa utama: PHP
+- Framework: Laravel 12
+- Template view: Blade
+- Admin panel: Filament 3
+- Integrasi peta: Filament Google Maps
+- Build frontend: Vite + JavaScript
 
-## Learning Laravel
+## Struktur proyek
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+app/
+  Filament/             # Konfigurasi panel admin Filament
+  Http/Controllers/     # Controller HTTP aplikasi
+  Models/               # Model Eloquent untuk data desa
+bootstrap/              # Bootstrapping Laravel
+config/                 # Konfigurasi aplikasi dan paket
+database/               # Migrasi, seeders, dan database
+public/                 # Root publik aplikasi
+resources/
+  css/                  # Styling frontend
+  js/                   # JavaScript frontend
+  views/                # File Blade templates
+routes/
+  web.php               # Route utama aplikasi
+storage/                # Cache, log, upload, dll.
+tests/                  # Test otomatis
+composer.json           # Dependency PHP dan script Composer
+package.json            # Dependency frontend dan script NPM
+vite.config.js         # Konfigurasi Vite
+.env.example            # Contoh konfigurasi environment
+phpunit.xml            # Konfigurasi PHPUnit
+artisan                 # CLI Laravel
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Arsitektur aplikasi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Aplikasi ini mengikuti pola MVC Laravel:
 
-## Laravel Sponsors
+- `routes/web.php` menangani rute publik seperti `/profil`, `/berita`, `/peta-desa`, dan `/infografis/*`
+- `app/Http/Controllers` berisi logika pengolahan request dan pengambilan data
+- `app/Models` berisi model Eloquent seperti `Berita`, `Produk`, `Umkm`, `Apbdes`, `Demografi`, `Bansos`, `Stunting`, dan lain-lain
+- `resources/views` berisi tampilan halaman yang ditampilkan ke pengguna
+- `app/Filament` menyediakan panel admin untuk pengelolaan data
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Rute yang tersedia
 
-### Premium Partners
+Beberapa route utama yang terdefinisi di `routes/web.php`:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```text
+/                       # landing page bawaan Laravel
+/profil                 # halaman profil desa
+/berita                 # daftar berita
+/berita/{slug}          # detail berita
+/belanja-umkm           # halaman UMKM
+/produk/{produk:slug}   # detail produk
+/infografis             # redirect ke infografis penduduk
+/infografis/penduduk   # data penduduk
+/infografis/apbdes     # data APBDes
+/infografis/stunting   # data stunting
+/infografis/bansos     # data bansos
+/infografis/idm        # data IDM
+/infografis/sdgs       # data SDGs
+/peta-desa             # halaman peta desa
+```
 
-## Contributing
+## Model utama
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Model yang teridentifikasi di folder `app/Models` di antaranya:
 
-## Code of Conduct
+- `Berita`
+- `Produk`
+- `Umkm`
+- `Apbdes` dan `ApbdesDetail`
+- `Demografi` dan `DemografiDetail`
+- `Bansos`
+- `PenerimaBansos`
+- `Idm`
+- `Sdg`
+- `Stunting`
+- `TitikPenting`
+- `User`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Model-model ini menjadi dasar untuk data statistik, berita, produk, dan data desa yang ditampilkan pada halaman aplikasi.
 
-## Security Vulnerabilities
+## Persyaratan sistem
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Sebelum menjalankan project, pastikan komputer Anda sudah memiliki:
 
-## License
+- PHP 8.2 atau lebih tinggi
+- Composer
+- Node.js dan npm
+- Database yang didukung Laravel (SQLite, MySQL, PostgreSQL)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Cara install dan jalankan
+
+### 1. Clone repository
+
+```bash
+git clone https://github.com/muisnryn/DesaSukamaju-FIlament.git
+cd DesaSukamaju-FIlament
+```
+
+### 2. Instal dependensi PHP
+
+```bash
+composer install
+```
+
+### 3. Konfigurasi environment
+
+```bash
+cp .env.example .env
+```
+
+Setelah itu, sesuaikan konfigurasi database pada file `.env`, misalnya:
+
+```env
+APP_NAME="Desa Sukamaju"
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=desa_sukamaju
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Atau jika menggunakan SQLite:
+
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=/path/to/database/database.sqlite
+```
+
+### 4. Generate application key
+
+```bash
+php artisan key:generate
+```
+
+### 5. Jalankan migrasi database
+
+```bash
+php artisan migrate
+```
+
+Jika ada data awal yang dibutuhkan, jalankan juga seeders (jika tersedia di folder `database/seeders`).
+
+### 6. Instal dependensi frontend
+
+```bash
+npm install
+```
+
+### 7. Jalankan server development
+
+```bash
+npm run dev
+php artisan serve
+```
+
+Akses aplikasi di:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Menjalankan test
+
+```bash
+php artisan test
+```
+
+## Build produksi
+
+```bash
+npm run build
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+## Catatan penting
+
+- Pastikan file `.env` sudah benar sebelum menjalankan migrasi dan aplikasi.
+- Jika project menggunakan storage publik, mungkin perlu menjalankan: `php artisan storage:link`
+- Panel admin Filament biasanya diakses melalui route admin sesuai konfigurasi Filament.
+
+## Kontribusi
+
+Pull request dan kontribusi sangat diterima. Pastikan perubahan Anda sudah diuji sebelum dikirim.
+
+## Lisensi
+
+Project ini menggunakan lisensi default Laravel/MIT. Silakan cek file lisensi yang tersedia di repository untuk detail lengkap.
+
+---
+
+Diadaptasi dari struktur repo `DesaSukamaju-FIlament` dan file utama seperti `routes/web.php`, `composer.json`, dan `app/Models`.
