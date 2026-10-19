@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('skor_iks', 5, 4);
             $table->decimal('skor_ike', 5, 4);
             $table->decimal('skor_ikl', 5, 4);
-            $table->json('indikator')->nullable(); // Untuk menyimpan data tabel indikator
+            $table->string('indikator')->nullable(); // Untuk menyimpan data tabel indikator
             $table->timestamps();
         });
     }

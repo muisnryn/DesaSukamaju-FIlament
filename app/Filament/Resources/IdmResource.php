@@ -33,30 +33,45 @@ class IdmResource extends Resource
                     ->required()
                     ->numeric()
                     ->minValue(2000)
-                    ->maxValue(date('Y'))
+                    ->maxValue(date('Y') + 1) // +1 agar bisa input rencana tahun depan
                     ->unique(ignoreRecord: true),
+                
                 TextInput::make('status_idm')
                     ->required()
-                    ->helperText('Contoh: Mandiri, Maju, Berkembang'),
+                    ->label('Status IDM')
+                    ->placeholder('Contoh: Mandiri, Maju, Berkembang'),
+
                 TextInput::make('skor_idm')
                     ->required()
                     ->numeric()
+                    ->label('Skor IDM (Total)')
                     ->rules(['regex:/^\d{1,1}(\.\d{1,4})?$/'])
-                    ->helperText('Gunakan titik sebagai koma, contoh: 0.7812'),
+                    ->helperText('Gunakan titik (.) sebagai koma. Contoh: 0.7812'),
+
                 TextInput::make('skor_iks')
                     ->required()
                     ->numeric()
+                    ->label('Skor IKS (Sosial)')
                     ->rules(['regex:/^\d{1,1}(\.\d{1,4})?$/']),
+
                 TextInput::make('skor_ike')
                     ->required()
                     ->numeric()
+                    ->label('Skor IKE (Ekonomi)')
                     ->rules(['regex:/^\d{1,1}(\.\d{1,4})?$/']),
+
                 TextInput::make('skor_ikl')
                     ->required()
                     ->numeric()
+                    ->label('Skor IKL (Lingkungan)')
                     ->rules(['regex:/^\d{1,1}(\.\d{1,4})?$/']),
+
+                // Menggunakan Textarea cocok jika tipe data di database adalah STRING/TEXT
                 Textarea::make('indikator')
-                    ->helperText('Anda bisa memasukkan data tabel indikator di sini dalam format teks sederhana.')
+                    ->label('Keterangan / Indikator')
+                    ->nullable() // PENTING: Agar tidak error jika dikosongkan
+                    ->rows(3)
+                    ->helperText('Masukkan catatan singkat mengenai indikator jika ada.')
                     ->columnSpanFull(),
             ]);
     }
@@ -65,9 +80,29 @@ class IdmResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('tahun')->searchable()->sortable(),
-                TextColumn::make('status_idm')->badge(),
-                TextColumn::make('skor_idm'),
+                TextColumn::make('tahun')
+                    ->sortable()
+                    ->searchable()
+                    ->label('Tahun'),
+                
+                TextColumn::make('status_idm')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Mandiri' => 'success',
+                        'Maju' => 'info',
+                        'Berkembang' => 'warning',
+                        'Tertinggal' => 'danger',
+                        default => 'gray',
+                    })
+                    ->label('Status'),
+
+                TextColumn::make('skor_idm')
+                    ->label('Skor Total'),
+                
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('tahun', 'desc')
             ->filters([
@@ -75,6 +110,7 @@ class IdmResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

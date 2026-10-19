@@ -23,7 +23,8 @@ class BeritaResource extends Resource
 {
     protected static ?string $model = Berita::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // REVISI: Menggunakan ikon koran agar sesuai dengan modul Berita
+    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
     public static function form(Form $form): Form
     {
@@ -32,18 +33,18 @@ class BeritaResource extends Resource
             TextInput::make('judul')
                 ->required()
                 ->maxLength(255)
-                ->live(onBlur: true) // <-- Tambahkan live onBlur
-                ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))), // <-- Buat slug otomatis
+                ->live(onBlur: true) 
+                ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state))), 
 
             TextInput::make('slug')
                 ->required()
                 ->maxLength(255)
-                ->readOnly(), // <-- Slug hanya bisa dibaca
+                ->readOnly(), 
 
             FileUpload::make('gambar')
                 ->image()
-                ->disk('public') // Simpan di storage/app/public
-                ->directory('berita-images'), // Buat folder khusus
+                ->disk('public') 
+                ->directory('berita-images'), 
 
             RichEditor::make('isi')
                 ->required()
@@ -70,13 +71,17 @@ class BeritaResource extends Resource
                         'draft' => 'gray',
                         'published' => 'success',
                     }),
-                Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Tanggal Posting')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(), // Menambahkan aksi hapus agar lebih lengkap
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
