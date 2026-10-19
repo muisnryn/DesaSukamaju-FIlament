@@ -16,6 +16,9 @@ class Dashboard extends BaseDashboard
 {
     use HasFiltersForm; 
 
+    protected static ?string $title = 'Dashboard';
+    protected static ?string $navigationLabel = 'Dashboard';
+
     public function filtersForm(Form $form): Form
     {
         return $form

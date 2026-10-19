@@ -164,7 +164,13 @@ php artisan key:generate
 php artisan migrate
 ```
 
-Jika ada data awal yang dibutuhkan, jalankan juga seeders (jika tersedia di folder `database/seeders`).
+Jalankan seeder untuk membuat akun admin dan mengisi tabel aplikasi dengan data contoh:
+
+```bash
+php artisan db:seed
+```
+
+Data yang dibuat seeder ditandai sebagai contoh dan bukan data resmi. Ganti atau hapus data tersebut sebelum website digunakan secara publik. Seeder aman dijalankan berulang kali dan tidak menghapus atau menimpa data yang sudah ada.
 
 ### 6. Instal dependensi frontend
 

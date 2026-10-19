@@ -13,11 +13,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Membuat Akun Admin Utama Desa Sukamaju
-        User::create([
-            'name'     => 'Admin Desa Sukamaju',
-            'email'    => 'admin@desasukamaju.id',
-            'password' => Hash::make('sukamajucibeber2026'),
+        User::query()->firstOrCreate(
+            ['email' => 'admin@desasukamaju.id'],
+            [
+                'name' => 'Admin Desa Sukamaju',
+                'password' => Hash::make('sukamajucibeber2026'),
+            ]
+        );
+
+        $this->call([
+            SampleDataSeeder::class,
         ]);
     }
 }
