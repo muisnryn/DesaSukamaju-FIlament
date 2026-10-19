@@ -43,6 +43,7 @@ class Dashboard extends BaseDashboard
     public function getWidgets(): array
     {
         return [
+            DashboardHeroWidget::class,
             StatsOverview::class,
             GenderChart::class,
             ApbdesChart::class,
