@@ -133,4 +133,22 @@ class ExampleTest extends TestCase
                 'Periode Tahun',
             ]);
     }
+
+    public function test_admin_login_is_in_the_footer_not_the_public_header(): void
+    {
+        $response = $this->get('/');
+        $response->assertOk()
+            ->assertSee('<a href="/admin" class="footer-link">Login Admin</a>', false);
+
+        $html = $response->getContent();
+        $headerStart = strpos($html, '<nav');
+        $headerEnd = strpos($html, '</nav>', $headerStart);
+
+        $this->assertNotFalse($headerStart);
+        $this->assertNotFalse($headerEnd);
+        $this->assertStringNotContainsString(
+            'Login Admin',
+            substr($html, $headerStart, $headerEnd - $headerStart)
+        );
+    }
 }

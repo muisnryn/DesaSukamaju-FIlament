@@ -33,12 +33,6 @@
                 </li>
             </ul>
 
-            <div class="ms-lg-3 mt-3 mt-lg-0">
-                {{-- UBAH DI SINI: Dari btn-outline-primary (Biru) ke btn-success (Hijau) --}}
-                <a href="/admin" class="btn btn-success px-4 rounded-pill shadow-sm fw-bold text-white">
-                    <i class="bi bi-box-arrow-in-right me-1"></i> Login Admin
-                </a>
-            </div>
         </div>
     </div>
 </nav>
