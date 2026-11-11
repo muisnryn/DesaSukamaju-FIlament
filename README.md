@@ -156,6 +156,12 @@ php artisan db:seed
 
 The seeder creates an initial admin only when `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` are set in your local `.env` or hosting environment. Never commit populated credentials.
 
+To create or reset only the admin account on production without seeding sample village data, set those variables in the server environment and run:
+
+```bash
+php artisan db:seed --class='Database\Seeders\AdminUserSeeder'
+```
+
 Build frontend assets and start the application:
 
 ```bash
