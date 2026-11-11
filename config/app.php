@@ -54,6 +54,12 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'seed_admin_name' => env('SEED_ADMIN_NAME', 'Admin Desa Sukamaju'),
+
+    'seed_admin_email' => env('SEED_ADMIN_EMAIL'),
+
+    'seed_admin_password' => env('SEED_ADMIN_PASSWORD'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

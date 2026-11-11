@@ -154,6 +154,8 @@ php artisan migrate
 php artisan db:seed
 ```
 
+The seeder creates an initial admin only when `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` are set in your local `.env` or hosting environment. Never commit populated credentials.
+
 Build frontend assets and start the application:
 
 ```bash
