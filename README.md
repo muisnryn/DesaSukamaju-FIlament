@@ -113,7 +113,7 @@ Informasi desa yang tersebar dan sulit dijangkau dapat menghambat transparansi s
 | Bagian | Teknologi |
 | --- | --- |
 | Backend | PHP 8.2+, Laravel 12 |
-| Panel administrasi | Filament 3, Livewire |
+| Panel administrasi | <a href="https://filamentphp.com" title="Filament"><img src="https://filamentphp.com/build/assets/light-bulb-CaWrwv1p.webp" alt="Ikon resmi Filament" height="24"></a> Filament 3, Livewire |
 | Tampilan website | Blade, Bootstrap 5 |
 | Tampilan panel admin | Tailwind CSS |
 | Database | MySQL/MariaDB di hosting; SQLite tersedia untuk pengembangan lokal |
