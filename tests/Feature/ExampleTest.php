@@ -151,4 +151,12 @@ class ExampleTest extends TestCase
             substr($html, $headerStart, $headerEnd - $headerStart)
         );
     }
+
+    public function test_admin_login_page_has_a_link_back_to_the_public_website(): void
+    {
+        $this->get('/admin/login')
+            ->assertOk()
+            ->assertSee('Kembali ke Website Publik')
+            ->assertSee('href="/"', false);
+    }
 }
