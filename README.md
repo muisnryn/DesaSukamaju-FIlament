@@ -63,7 +63,7 @@
 
 ## Tentang Project
 
-Website Desa Sukamaju adalah media informasi dan pelayanan publik digital bagi warga dan masyarakat umum. Website ini membantu Pemerintah Desa menyampaikan informasi, membuka akses ke data publik, serta memperkenalkan potensi lokal.
+Website Desa Sukamaju adalah media informasi dan pelayanan publik digital bagi warga dan masyarakat umum. Website ini membantu Pemerintah Desa menyampaikan informasi, membuka akses ke data publik, serta memperkenalkan potensi desa.
 
 Informasi desa yang tersebar dan sulit dijangkau dapat menghambat transparansi serta pelayanan. Project ini menghadirkan informasi penting dalam satu tempat dan mendukung proses digitalisasi desa.
 
@@ -104,6 +104,10 @@ Informasi desa yang tersebar dan sulit dijangkau dapat menghambat transparansi s
 
 <div align="center">
   <img src="https://skillicons.dev/icons?i=php,laravel,mysql,bootstrap,tailwindcss,vite,js" alt="Ikon teknologi: PHP, Laravel, MySQL, Bootstrap, Tailwind CSS, Vite, dan JavaScript">
+  <br>
+  <a href="https://filamentphp.com/">
+    <img src="https://img.shields.io/badge/Filament-3-FDAE4B?logo=filament&logoColor=white" alt="Filament 3">
+  </a>
 </div>
 
 | Bagian | Teknologi |
@@ -306,7 +310,7 @@ Saat melaporkan bug, sertakan langkah reproduksi dan halaman terkait. Jangan ser
 
 <!-- composer.json mencantumkan MIT. Pastikan lisensi disetujui pemilik project dan tambahkan file LICENSE resmi. -->
 
-Metadata `composer.json` mencantumkan lisensi **MIT**, tetapi repository belum memiliki berkas `LICENSE` resmi. Pastikan lisensi tersebut telah disetujui pemilik project dan tambahkan teks lisensi resmi sebelum distribusi.
+Metadata `composer.json` mencantumkan lisensi **MIT**, tetapi repository belum memiliki berkas `LICENSE` resmi. Pastikan lisensi tersebut telah disetujui pemilik project dan tambahkan teks lisensi yang sesuai sebelum distribusi.
 
 ## Tim Pengembang dan Kontak
 
