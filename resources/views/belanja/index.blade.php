@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Belanja UMKM Desa')
+@section('title', 'Belanja UMKM Desa Sukamaju | Produk Lokal')
+@section('meta_description', 'Jelajahi produk UMKM Desa Sukamaju, Kecamatan Cibeber, Kabupaten Cianjur. Temukan produk lokal dan dukung usaha masyarakat desa.')
 
 @section('content')
 

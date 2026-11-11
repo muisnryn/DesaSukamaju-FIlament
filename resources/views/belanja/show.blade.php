@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', $produk->nama_produk . ' - Belanja UMKM')
+@section('title', $produk->nama_produk . ' | Belanja UMKM Desa Sukamaju')
+@section('meta_description', \Illuminate\Support\Str::limit(trim(strip_tags($produk->deskripsi ?? 'Produk UMKM lokal Desa Sukamaju.')), 160))
+@section('meta_image', $produk->gambar_produk ? asset('storage/' . $produk->gambar_produk) : asset('images/logo-desa.png'))
 
 @section('content')
 

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Profil Desa ')
+@section('title', 'Profil Desa Sukamaju | Pemerintah Desa')
+@section('meta_description', 'Kenali Desa Sukamaju di Kecamatan Cibeber, Kabupaten Cianjur: profil, sejarah, visi misi, wilayah, dan struktur pemerintahan desa.')
 
 @section('content')
 

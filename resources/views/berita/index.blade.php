@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Berita Desa')
+@section('title', 'Berita Desa Sukamaju | Kabar dan Informasi')
+@section('meta_description', 'Baca berita, kegiatan, pembangunan, dan pengumuman terbaru dari Pemerintah Desa Sukamaju, Kecamatan Cibeber, Kabupaten Cianjur.')
 
 @section('content')
 

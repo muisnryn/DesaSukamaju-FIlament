@@ -1,6 +1,7 @@
 @extends('layouts.infografis')
 
-@section('title', 'APBDes')
+@section('title', 'APB Desa Sukamaju | Informasi Anggaran Desa')
+@section('meta_description', 'Informasi pendapatan, belanja, dan pembiayaan APB Desa Sukamaju sebagai bagian dari transparansi anggaran desa.')
 
 @section('infografis_content')
 

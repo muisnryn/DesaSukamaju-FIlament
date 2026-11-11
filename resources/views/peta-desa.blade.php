@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Peta Desa Interaktif')
+@section('title', 'Peta Desa Sukamaju | Lokasi dan Fasilitas')
+@section('meta_description', 'Jelajahi peta Desa Sukamaju dan temukan lokasi serta titik penting di Kecamatan Cibeber, Kabupaten Cianjur.')
 
 @push('styles')
 {{-- Menambahkan CSS Leaflet ke dalam <head> --}}

@@ -1,6 +1,30 @@
 @extends('layouts.app')
 
-@section('title', $berita->judul)
+@section('title', $berita->judul . ' | Berita Desa Sukamaju')
+@section('meta_description', \Illuminate\Support\Str::limit(trim(strip_tags($berita->isi)), 160))
+@section('meta_image', $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/logo-desa.png'))
+@section('og_type', 'article')
+
+@php
+    $articleSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'NewsArticle',
+        'headline' => $berita->judul,
+        'description' => \Illuminate\Support\Str::limit(trim(strip_tags($berita->isi)), 160),
+        'datePublished' => $berita->created_at?->toAtomString(),
+        'dateModified' => $berita->updated_at?->toAtomString(),
+        'mainEntityOfPage' => url()->current(),
+        'image' => $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/logo-desa.png'),
+        'publisher' => [
+            '@type' => 'GovernmentOrganization',
+            'name' => 'Pemerintah Desa Sukamaju',
+        ],
+    ];
+@endphp
+
+@push('structured-data')
+    <script type="application/ld+json">@json($articleSchema)</script>
+@endpush
 
 @section('content')
 

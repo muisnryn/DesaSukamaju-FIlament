@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Selamat Datang di Website Resmi Desa Sukamaju')
+@section('title', 'Beranda | Website Resmi Desa Sukamaju')
+@section('meta_description', 'Website resmi Pemerintah Desa Sukamaju, Kecamatan Cibeber, Kabupaten Cianjur. Akses profil, berita, infografis, layanan publik, dan produk UMKM desa.')
 
 @section('content')
 

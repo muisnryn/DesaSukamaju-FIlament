@@ -1,6 +1,7 @@
 @extends('layouts.infografis')
 
-@section('title', 'Demografi Penduduk')
+@section('title', 'Demografi Penduduk Desa Sukamaju | Infografis')
+@section('meta_description', 'Lihat infografis demografi penduduk Desa Sukamaju berdasarkan data yang dikelola Pemerintah Desa.')
 
 @section('infografis_content')
 

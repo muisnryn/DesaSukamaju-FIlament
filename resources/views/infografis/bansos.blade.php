@@ -1,6 +1,8 @@
 @extends('layouts.infografis')
 
-@section('title', 'Bantuan Sosial')
+@section('title', 'Bantuan Sosial Desa Sukamaju | Cek Bansos')
+@section('meta_description', 'Lihat rekapitulasi bantuan sosial Desa Sukamaju. Pencarian penerima menggunakan NIK tidak diindeks oleh mesin pencari.')
+@section('meta_robots', request()->filled('nik') ? 'noindex,nofollow' : 'index,follow')
 
 @section('infografis_content')
 

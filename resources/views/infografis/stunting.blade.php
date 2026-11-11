@@ -1,6 +1,7 @@
 @extends('layouts.infografis')
 
-@section('title', 'Data Stunting')
+@section('title', 'Data Stunting Desa Sukamaju | Infografis')
+@section('meta_description', 'Informasi agregat data stunting Desa Sukamaju yang disajikan melalui halaman infografis Pemerintah Desa.')
 
 @section('infografis_content')
 

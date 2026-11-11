@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Infografis Desa')
-
 @section('content')
 
 {{-- Style khusus untuk halaman infografis --}}

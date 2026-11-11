@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /fix-storage
+
+Sitemap: https://sukamajucibeber.com/sitemap.xml

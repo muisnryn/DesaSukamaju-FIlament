@@ -6,6 +6,7 @@ use App\Http\Controllers\BelanjaController;
 use App\Http\Controllers\InfografisController;
 use App\Http\Controllers\PetaController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\SitemapController;
 use App\Models\ProfilDesa;
 use App\Models\Aparatur;
 use App\Models\Berita;
@@ -66,6 +67,7 @@ Route::prefix('infografis')->name('infografis.')->group(function () {
 });
 
 Route::get('/peta-desa', [PetaController::class, 'index'])->name('peta.desa');
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 Route::get('/fix-storage', function () {
     // 1. Hapus folder storage yang mungkin corrupt di public

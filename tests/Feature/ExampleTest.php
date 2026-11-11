@@ -63,6 +63,52 @@ class ExampleTest extends TestCase
         $this->get('/berita/berita-draft-rahasia')->assertNotFound();
     }
 
+    public function test_public_pages_render_seo_metadata_and_json_ld(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('<meta name="description"', false)
+            ->assertSee('<link rel="canonical" href="' . url('/') . '"', false)
+            ->assertSee('property="og:title"', false)
+            ->assertSee('application/ld+json', false)
+            ->assertSee('GovernmentOrganization', false);
+
+        $this->get('/infografis/penduduk')
+            ->assertOk()
+            ->assertSee('<title>Demografi Penduduk Desa Sukamaju | Infografis</title>', false);
+    }
+
+    public function test_sitemap_contains_public_pages_and_only_published_news(): void
+    {
+        Berita::create([
+            'judul' => 'Berita Sitemap Publik',
+            'slug' => 'berita-sitemap-publik',
+            'isi' => 'Berita yang telah dipublikasikan.',
+            'status' => 'published',
+        ]);
+        Berita::create([
+            'judul' => 'Berita Sitemap Draft',
+            'slug' => 'berita-sitemap-draft',
+            'isi' => 'Berita yang belum dipublikasikan.',
+            'status' => 'draft',
+        ]);
+
+        $this->get('/sitemap.xml')
+            ->assertOk()
+            ->assertHeader('content-type', 'application/xml; charset=UTF-8')
+            ->assertSee('<loc>' . url('/') . '</loc>', false)
+            ->assertSee(url('/berita/berita-sitemap-publik'), false)
+            ->assertDontSee('berita-sitemap-draft');
+    }
+
+    public function test_bansos_search_results_are_not_indexable(): void
+    {
+        $this->get('/infografis/bansos?nik=1234567890123456')
+            ->assertOk()
+            ->assertSee('<meta name="robots" content="noindex,nofollow">', false)
+            ->assertSee('<link rel="canonical" href="' . url('/infografis/bansos') . '"', false);
+    }
+
     public function test_bansos_page_filters_recap_data_by_selected_year(): void
     {
         Bansos::create([

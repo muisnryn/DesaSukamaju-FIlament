@@ -1,6 +1,7 @@
 @extends('layouts.infografis')
 
-@section('title', 'SDGs Desa')
+@section('title', 'SDGs Desa Sukamaju | Tujuan Pembangunan Berkelanjutan')
+@section('meta_description', 'Lihat ringkasan capaian Sustainable Development Goals (SDGs) Desa Sukamaju melalui infografis desa.')
 
 @section('infografis_content')
 

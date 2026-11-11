@@ -1,6 +1,7 @@
 @extends('layouts.infografis')
 
-@section('title', 'Indeks Desa Membangun (IDM)')
+@section('title', 'Indeks Desa Membangun Sukamaju | IDM')
+@section('meta_description', 'Lihat informasi Indeks Desa Membangun (IDM) Desa Sukamaju berdasarkan data yang dikelola Pemerintah Desa.')
 
 @section('infografis_content')
 

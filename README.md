@@ -1,221 +1,336 @@
-# Desa Sukamaju Information Website
+<a id="top"></a>
 
-A Laravel and Filament application for presenting village information and managing public-facing content and village datasets, including news, village profile, MSMEs, products, maps, and statistical infographics.
+<div align="center">
+  <img src="public/images/logo-desa.png" alt="Logo Pemerintah Desa Sukamaju" width="120">
 
-## Project Overview
+  <h1>Website Desa Sukamaju</h1>
 
-The website provides public pages for the village profile, news, MSME products, map locations, and infographics. A Filament admin panel supports maintenance of content and structured village data. Statistical pages can display data for a selected year or default to the latest available year, depending on the page.
+  <p><strong>Informasi desa yang terbuka, layanan publik yang mudah dijangkau.</strong></p>
+  <p>Website resmi Pemerintah Desa Sukamaju, Kecamatan Cibeber, Kabupaten Cianjur, Jawa Barat.</p>
 
-The repository is a fork of [yasfachrezyy/Sistem-Informasi-DesaSukamaju](https://github.com/yasfachrezyy/Sistem-Informasi-DesaSukamaju). The project-specific source inspected here includes additional or customized Filament resources, dashboard widgets, controllers, views, and migrations. User ownership and contribution distribution cannot be inferred from the code alone.
+  <p>
+    <a href="https://sukamajucibeber.com">
+      <img src="https://img.shields.io/website?url=https%3A%2F%2Fsukamajucibeber.com&label=Website&up_message=Online&up_color=2E7D32&down_color=red" alt="Status website Desa Sukamaju">
+    </a>
+    <a href="https://www.php.net/">
+      <img src="https://img.shields.io/badge/PHP-8.2%2B-2E7D32?logo=php&logoColor=white" alt="PHP 8.2 atau lebih baru">
+    </a>
+    <a href="https://laravel.com/">
+      <img src="https://img.shields.io/badge/Laravel-12-2E7D32?logo=laravel&logoColor=white" alt="Laravel 12">
+    </a>
+    <a href="#lisensi">
+      <img src="https://img.shields.io/badge/Lisensi-MIT-2E7D32" alt="Metadata project menyatakan lisensi MIT">
+    </a>
+    <a href="https://github.com/muisnryn/DesaSukamaju-FIlament/commits/main">
+      <img src="https://img.shields.io/github/last-commit/muisnryn/DesaSukamaju-FIlament?color=2E7D32" alt="Commit terakhir repository">
+    </a>
+    <a href="https://github.com/muisnryn/DesaSukamaju-FIlament/stargazers">
+      <img src="https://img.shields.io/github/stars/muisnryn/DesaSukamaju-FIlament?style=social" alt="Jumlah stars repository">
+    </a>
+    <a href="https://github.com/muisnryn/DesaSukamaju-FIlament/forks">
+      <img src="https://img.shields.io/github/forks/muisnryn/DesaSukamaju-FIlament?style=social" alt="Jumlah forks repository">
+    </a>
+  </p>
 
-## Key Features
+  <p>
+    <a href="https://sukamajucibeber.com">
+      <img src="https://img.shields.io/badge/🌐_Live_Demo-2E7D32?style=for-the-badge" alt="Buka live demo website">
+    </a>
+    <a href="#panduan-instalasi">
+      <img src="https://img.shields.io/badge/📖_Dokumentasi-2E7D32?style=for-the-badge" alt="Buka panduan instalasi">
+    </a>
+    <a href="https://github.com/muisnryn/DesaSukamaju-FIlament/issues/new">
+      <img src="https://img.shields.io/badge/🐛_Laporkan_Bug-2E7D32?style=for-the-badge" alt="Laporkan bug di GitHub">
+    </a>
+  </p>
+</div>
 
-### Public village information
-- Homepage displays village profile, officials, recent news, and APBDes/demographic summaries.
-- Profile page presents village history, vision/mission, territory description, and officials.
-- News listing and detail routes use article slugs.
+<!-- Ganti username/repo pada badge dan tautan jika repository dipindahkan. -->
 
-### MSME and product catalog
-- Public page lists products together with their associated MSME.
-- Product detail route uses Laravel model binding by product slug.
-- Admin resources manage MSMEs and products, including images, descriptions, categories, prices, and owner associations.
+## Daftar Isi
 
-### Village infographics
-- Public pages cover population/demographics, APBDes, stunting, social assistance, IDM, and SDGs.
-- Several infographic controllers expose available year values and select a requested year, defaulting to the latest available year.
-- The social-assistance page searches recipients by NIK and shows current/latest-year assistance summary data.
+- [Tentang Project](#tentang-project)
+- [Fitur Utama](#fitur-utama)
+- [Screenshot](#screenshot)
+- [Teknologi](#teknologi)
+- [Struktur Folder](#struktur-folder)
+- [Panduan Instalasi](#panduan-instalasi)
+- [Roadmap](#roadmap)
+- [Kontribusi](#kontribusi)
+- [Lisensi](#lisensi)
+- [Tim Pengembang dan Kontak](#tim-pengembang-dan-kontak)
+- [Ucapan Terima Kasih](#ucapan-terima-kasih)
 
-### Interactive village map
-- The public map displays stored points of interest, with markers and a location list.
-- Selecting a location in the list centers/zooms the map and opens the corresponding marker popup.
-- The inspected public map view uses Leaflet and OpenStreetMap tile URLs. Although a Filament Google Maps package is declared, this README does not claim that public map rendering uses Google Maps.
+## Tentang Project
 
-### Filament administration
-- Admin panel login is enabled at `/admin` using Filament's authentication middleware.
-- Resources manage village profile, village officials, news, APBDes and details, demographics, social assistance and recipients, products, MSMEs, IDM, SDGs, and stunting.
-- Dashboard widgets include statistics, gender chart, APBDes chart, and a hero widget.
-- No custom role/permission system beyond the Filament panel authentication was verified.
+Website Desa Sukamaju adalah media informasi dan pelayanan publik digital bagi warga dan masyarakat umum. Website ini membantu Pemerintah Desa menyampaikan informasi, membuka akses ke data publik, serta memperkenalkan potensi lokal.
 
-## Application Workflow
+Informasi desa yang tersebar dan sulit dijangkau dapat menghambat transparansi serta pelayanan. Project ini menghadirkan informasi penting dalam satu tempat dan mendukung proses digitalisasi desa.
 
-```mermaid
-flowchart LR
-    A[Administrator signs in to Filament] --> B[Manage profile, officials, news, MSMEs, and village data]
-    B --> C[Data stored through Eloquent models]
-    C --> D[Public Laravel routes and controllers query data]
-    D --> E[Blade pages display profile, news, catalog, map, and infographics]
-    E --> F[Visitors browse public information or search assistance recipients]
-```
+### Tujuan
 
-### User groups
+- Meningkatkan transparansi data dan anggaran desa.
+- Memudahkan masyarakat mengakses informasi dan layanan publik.
+- Mempromosikan potensi pertanian, agrowisata, dan UMKM desa.
+- Mendukung digitalisasi informasi Pemerintah Desa Sukamaju.
 
-- **Administrator:** signs into the Filament panel and manages content/data through available resources and dashboard widgets.
-- **Public visitor:** browses village information, news, products, infographics, and map locations. No public account workflow was found in the routes inspected.
+## Fitur Utama
 
-## Technology Stack
+| Fitur | Deskripsi |
+| --- | --- |
+| 🏠 **Beranda** | Ringkasan informasi dan akses ke halaman utama desa. |
+| 🏛️ **Profil Desa** | Informasi profil dan struktur pemerintahan desa. |
+| 📊 **Infografis** | Data demografi, APB Desa, bantuan sosial, stunting, IDM, dan SDGs. |
+| 📰 **Berita / Kabar Desa** | Daftar berita dan detail informasi kegiatan desa. |
+| 🛍️ **Belanja UMKM** | Katalog produk dan informasi pelaku UMKM lokal. |
+| 🤝 **Cek Bansos** | Informasi bantuan sosial untuk masyarakat. |
+| 📍 **Peta Desa** | Peta dan titik penting di wilayah desa. |
+| 🔎 **SEO teknis** | Metadata halaman, structured data, sitemap dinamis, dan `robots.txt` untuk membantu mesin pencari memahami konten publik. |
+| 🔐 **Panel Admin** | Pengelolaan konten dan data melalui Filament. |
 
-| Category | Technology | Purpose |
-|---|---|---|
-| Backend | PHP `^8.2`, Laravel `^12.0` | Web framework, routing, controllers, validation, and data access; versions from `composer.json`. |
-| Frontend | Blade, Vite `^7.0.4`, Tailwind CSS `^4.0.0` | Server-rendered pages and frontend asset build; versions from repository dependency files. |
-| Admin panel | Filament `^3.2` | Login-protected data resources, forms, tables, and dashboard. |
-| ORM/database | Eloquent; SQLite default with MySQL driver available | Relational data models and migrations. `.env.example` defaults to SQLite; the active runtime database was not inspected. |
-| Map | Leaflet 1.9.4 and OpenStreetMap tiles on the public map page | Renders public point-of-interest markers. The Leaflet references are in `resources/views/peta-desa.blade.php`. |
-| Admin map dependency | `cheesegrits/filament-google-maps` `^3.0` | Installed dependency. Specific use in the inspected resources was not confirmed, so it is not described as an implemented user-facing map integration. |
-| Testing | PHPUnit `^11.5.3`, Laravel test runner | Test harness and example tests are present; feature-specific coverage is limited in the inspected tree. |
+## Screenshot
 
-## Project Architecture
+<!-- Tambahkan screenshot aktual ke docs/screenshots/, lalu sesuaikan nama file di tabel ini. -->
 
-The application uses Laravel's MVC conventions. Filament resources provide the admin CRUD interfaces, while public routes use controllers and Blade views.
+| Halaman | Tampilan |
+| --- | --- |
+| **Beranda** | ![Screenshot halaman beranda Website Desa Sukamaju](docs/screenshots/beranda.png) |
+| **Profil Desa** | ![Screenshot halaman profil dan struktur pemerintahan desa](docs/screenshots/profil-desa.png) |
+| **Infografis** | ![Screenshot halaman infografis desa](docs/screenshots/infografis.png) |
+| **Belanja UMKM** | ![Screenshot katalog Belanja UMKM](docs/screenshots/belanja-umkm.png) |
+| **Panel Admin** | ![Screenshot panel admin Website Desa Sukamaju](docs/screenshots/panel-admin.png) |
+
+## Teknologi
+
+<div align="center">
+  <img src="https://skillicons.dev/icons?i=php,laravel,mysql,bootstrap,tailwindcss,vite,js" alt="Ikon teknologi: PHP, Laravel, MySQL, Bootstrap, Tailwind CSS, Vite, dan JavaScript">
+</div>
+
+| Bagian | Teknologi |
+| --- | --- |
+| Backend | PHP 8.2+, Laravel 12 |
+| Panel administrasi | Filament 3, Livewire |
+| Tampilan website | Blade, Bootstrap 5 |
+| Tampilan panel admin | Tailwind CSS |
+| Database | MySQL/MariaDB di hosting; SQLite tersedia untuk pengembangan lokal |
+| Asset frontend | Vite, Node.js, npm |
+| Pengujian | PHPUnit melalui Laravel Test Runner |
+
+## Struktur Folder
 
 ```text
-app/
-├── Filament/
-│   ├── Pages/                # Custom admin dashboard
-│   ├── Resources/            # Admin CRUD resources
-│   └── Widgets/              # Statistics and charts
-├── Http/Controllers/         # News, shopping, profile, map, and infographic flows
-├── Models/                   # Village content and dataset models
-└── Providers/Filament/       # Filament panel configuration
-resources/
-├── views/                    # Public Blade pages and Filament custom views
-├── css/
-└── js/
-routes/
-└── web.php                   # Public profile, news, products, infographic, and map routes
-database/
-├── migrations/               # Village content and data tables
-└── seeders/                  # Database/sample-data setup
-tests/
-├── Feature/
-└── Unit/
+.
+├── app/
+│   ├── Filament/          # Halaman, resource, dan widget panel admin
+│   ├── Http/              # Controller dan middleware
+│   ├── Models/            # Model Eloquent
+│   └── Providers/         # Konfigurasi aplikasi dan Filament
+├── config/                # Konfigurasi Laravel
+├── database/
+│   ├── factories/         # Factory untuk data pengujian
+│   ├── migrations/        # Skema database
+│   └── seeders/           # Seeder aplikasi dan akun admin
+├── public/
+│   ├── css/               # CSS publik dan asset Filament
+│   ├── images/            # Logo dan gambar
+│   └── js/                # JavaScript publik dan asset Filament
+├── resources/
+│   ├── css/               # Sumber stylesheet
+│   ├── js/                # Sumber JavaScript
+│   └── views/              # Template Blade website dan panel
+├── routes/
+│   └── web.php             # Rute website publik
+├── tests/
+│   ├── Feature/            # Pengujian fitur
+│   └── Unit/               # Pengujian unit
+├── .env.example            # Contoh konfigurasi environment
+├── artisan
+├── composer.json
+├── package.json
+└── vite.config.js
 ```
 
-Key implementation files:
+## Panduan Instalasi
 
-- `routes/web.php` — public homepage, profile, news, product, infographic, map, and storage-related routes.
-- `app/Http/Controllers/InfografisController.php` — year selection and queries for infographic pages.
-- `app/Http/Controllers/PetaController.php` — retrieves points of interest for the map view.
-- `app/Filament/Pages/Dashboard.php` and `app/Filament/Widgets/` — dashboard filters and visual summaries.
-- `app/Providers/Filament/AdminPanelProvider.php` — panel path, login, resource discovery, branding, and authentication middleware.
+### Prasyarat
 
-## Database Design
+- PHP 8.2 atau lebih baru dengan ekstensi yang dibutuhkan Laravel.
+- Composer 2.
+- Node.js yang didukung Vite 7 (Node.js 20.19+ atau 22.12+).
+- MySQL/MariaDB, atau SQLite untuk pengembangan lokal.
+- Git.
 
-The migrations establish separate tables for profile, officials, content, and statistical domains. Important relationships visible in migrations/models include product-to-UMKM and APBDes-detail-to-APBDes. The table below does not assume relationships where foreign keys were not confirmed.
-
-| Entity/table | Purpose and verified relationships |
-|---|---|
-| `profil_desas` | Village profile content managed through `ProfilDesaResource`. |
-| `aparaturs` | Village officials; homepage/profile query orders them by `urutan`. |
-| `beritas` | News articles displayed through list and slug-based detail pages. |
-| `umkms` | MSME information managed in the admin panel. |
-| `produks` | Products associated with an MSME through the `umkm` relationship. |
-| `demografis`, `demografi_details` | Year-based population summaries and details. |
-| `apbdes`, `apbdes_details` | Annual village budget summary and associated detail records. |
-| `bansos`, `penerima_bansos` | Assistance summary data and recipient lookup; recipient NIK is unique in its migration. |
-| `idms`, `sdgs`, `stuntings` | Year-based village development, SDG, and stunting data. |
-| `titik_pentings` | Map points with name, category, optional description/photo, and latitude/longitude. |
-
-```mermaid
-erDiagram
-    UMKMS ||--o{ PRODUKS : lists
-    APBDES ||--o{ APBDES_DETAILS : contains
-```
-
-Other relationships are not included here unless confirmed in the inspected migration/model definitions.
-
-## Application Screenshots
-
-The repository contains village branding and content images, but no dedicated application screenshot set was identified. Add genuine screen captures under `docs/screenshots/` and link them here when available. Existing branding images are not represented as screenshots.
-
-## Installation and Setup
-
-### Requirements
-
-- PHP 8.2 or newer and Composer.
-- Node.js and npm for frontend assets.
-- SQLite by default, or another database configured in Laravel.
-
-### Local setup
+### 1. Clone repository
 
 ```bash
 git clone https://github.com/muisnryn/DesaSukamaju-FIlament.git
 cd DesaSukamaju-FIlament
+```
+
+### 2. Install dependency dan siapkan environment
+
+```bash
 composer install
+npm install
+```
+
+Linux/macOS:
+
+```bash
 cp .env.example .env
+```
+
+Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Buat application key:
+
+```bash
 php artisan key:generate
 ```
 
-The example environment uses SQLite. Ensure the SQLite file exists, then run migrations and seeders against a local development database:
+Edit `.env` untuk mengatur `APP_URL` dan koneksi database. Untuk MySQL/MariaDB, buat databasenya terlebih dahulu. **Jangan commit `.env` atau kredensial asli ke GitHub.**
 
-```bash
-php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');"
-php artisan migrate
-php artisan db:seed
+Contoh konfigurasi database:
+
+```dotenv
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nama_database
+DB_USERNAME=username_database
+DB_PASSWORD=password_database
 ```
 
-The seeder creates an initial admin only when `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` are set in your local `.env` or hosting environment. Never commit populated credentials. Site content is entered manually through the admin panel; no sample village data is seeded.
+### 3. Migrasi dan siapkan storage
 
-To create or reset only the admin account on production, set those variables in the server environment and run:
+```bash
+php artisan migrate
+php artisan storage:link
+```
+
+### 4. Buat atau perbarui akun admin
+
+Atur variabel berikut pada `.env` lokal atau environment server. Gunakan nilai pribadi dan jangan masukkan password sungguhan ke README:
+
+```dotenv
+SEED_ADMIN_NAME="Admin Desa"
+SEED_ADMIN_EMAIL=admin@example.com
+SEED_ADMIN_PASSWORD='ganti-dengan-password-kuat'
+```
+
+Jalankan seeder khusus admin:
 
 ```bash
 php artisan db:seed --class='Database\Seeders\AdminUserSeeder'
 ```
 
-Build frontend assets and start the application:
+Seeder ini membuat atau memperbarui akun dengan email tersebut dan **tidak** mengisi data contoh desa. Setelah berhasil, hapus `SEED_ADMIN_PASSWORD` dari environment server jika tidak lagi diperlukan.
+
+Panel admin tersedia melalui `/admin`.
+
+### 5. Build asset dan jalankan aplikasi
 
 ```bash
-npm install
 npm run build
 php artisan serve
 ```
 
-Open the local address printed by Artisan. Use `npm run dev` in a separate terminal if you need Vite's development asset server.
+Buka alamat lokal yang ditampilkan Artisan, biasanya `http://127.0.0.1:8000`. Untuk pengembangan frontend, jalankan `npm run dev` di terminal terpisah.
 
-> Review `database/seeders/` and confirm the configured database before seeding. Do not run migration or seeder commands against data that must be preserved.
-
-## Environment Configuration
-
-`.env.example` sets SQLite as the default database and includes standard Laravel application, session, cache, queue, filesystem, and mail variables.
-
-| Variable | Purpose |
-|---|---|
-| `APP_NAME`, `APP_ENV`, `APP_KEY`, `APP_DEBUG`, `APP_URL` | Application runtime and URL settings. |
-| `DB_CONNECTION` | Database driver; default is SQLite. MySQL connection settings are available in Laravel configuration and commented in the environment example. |
-| `SESSION_DRIVER`, `CACHE_STORE`, `QUEUE_CONNECTION` | Session, cache, and queue backend configuration. |
-| `FILESYSTEM_DISK` | Default file storage disk; Filament uploads specify public storage for relevant resources. |
-
-The public map loads OpenStreetMap tiles through the Leaflet view. No Google Maps API key variable is declared in `.env.example` for the public map. The third-party Filament Google Maps dependency may have its own configuration requirements if used in additional admin fields; those requirements were not verified in the resources examined.
-
-## Testing
-
-Run the Laravel test suite with:
+### 6. Jalankan pengujian
 
 ```bash
 php artisan test
 ```
 
-The repository includes Laravel example feature/unit tests. No domain-specific test coverage for map rendering, infographic year selection, or Filament resources was confirmed in the inspected test files. Tests were not executed for this README update, so no pass/fail status is claimed.
+## Konfigurasi Lanjutan
 
-## Deployment
+<details>
+  <summary>Deploy di Hostinger</summary>
 
-No deployment manifest, CI/CD workflow, or hosting configuration was verified in the repository. Deployment instructions are not included. Configure production database and filesystem settings, restrict debug mode, and protect the Filament admin panel before deploying.
+- Repository dideploy ke `public_html`; aturan rewrite mengarahkan request website ke folder `public`.
+- Simpan `.env` hanya di server dan pastikan file tersebut tidak masuk Git.
+- Atur `APP_ENV=production`, `APP_DEBUG=false`, dan `APP_URL=https://sukamajucibeber.com`.
+- Untuk perubahan skema di production, gunakan `php artisan migrate --force` setelah membuat backup database.
+- **Jangan** menjalankan `php artisan migrate:fresh` pada database production karena perintah tersebut menghapus semua tabel dan data.
+- Jika Composer gagal karena `proc_open` dinonaktifkan, hubungi dukungan hosting terkait konfigurasi PHP CLI.
+- Jika Tinker gagal karena fungsi shell dinonaktifkan, gunakan `AdminUserSeeder` untuk mengelola akun admin.
 
-## Project Limitations
+</details>
 
-- No custom role/permission matrix beyond the authenticated Filament admin panel was verified.
-- Public infographics depend on data entered for the selected year; empty datasets can yield empty/default views.
-- The public map uses Leaflet/OpenStreetMap in the inspected view. The installed Filament Google Maps dependency alone does not establish a Google Maps feature.
-- Tests exist, but feature-specific coverage and passing status were not verified.
-- No deployment instructions, dedicated screenshots, or repository `LICENSE` file were found. Although `composer.json` contains a `license` metadata field, no license file was verified; this README does not assign a repository license.
+<details>
+  <summary>Pemecahan masalah</summary>
 
-## Developer / Author
+| Masalah | Solusi |
+| --- | --- |
+| CSS atau gambar tidak tampil | Pastikan asset berada di `public/`, aturan rewrite aktif, dan bersihkan cache browser. |
+| Koneksi database gagal | Periksa `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, dan `DB_PASSWORD` di environment server. |
+| Konfigurasi belum terbaca | Jalankan `php artisan config:clear` melalui terminal server. |
+| Upload gambar tidak muncul | Pastikan storage link tersedia dengan `php artisan storage:link` dan konfigurasi filesystem sesuai. |
+| Composer tidak dapat memasang dependency | Periksa versi PHP CLI dan minta hosting memeriksa ketersediaan `proc_open`. |
+| Tinker menampilkan error `shell_exec()` | Fungsi tersebut mungkin dinonaktifkan pada PHP CLI hosting. Gunakan seeder admin khusus. |
 
-**Muis Nuryana**
+</details>
 
-- GitHub: [muisnryn](https://github.com/muisnryn)
-- LinkedIn: [muisnuryana](https://linkedin.com/in/muisnuryana)
+## Roadmap
 
-## License
+- [x] Halaman publik: profil, berita, infografis, peta, dan katalog UMKM.
+- [x] Panel admin berbasis Filament.
+- [x] Seeder khusus untuk membuat atau memperbarui akun admin.
+- [ ] Mengisi konten dan data resmi desa yang telah diverifikasi.
+- [ ] Menambahkan screenshot aktual ke `docs/screenshots/`.
+- [ ] Menambahkan berkas lisensi resmi ke repository.
+- [ ] Mengevaluasi aksesibilitas dan pengalaman pengguna secara berkala.
 
-No `LICENSE` file was found in the repository. The repository license is therefore not verified by a license file. Do not assume permissions to reuse, distribute, or modify the code beyond applicable law and GitHub's default repository terms.
+## Kontribusi
+
+Kontribusi berupa laporan bug, saran, dokumentasi, maupun pull request sangat terbuka.
+
+1. Fork repository ini.
+2. Buat branch baru, misalnya `git checkout -b fitur/nama-fitur`.
+3. Lakukan perubahan dan jalankan pengujian dengan `php artisan test`.
+4. Pastikan `.env`, kredensial, data pribadi, dan database lokal tidak ikut ditambahkan.
+5. Ajukan pull request dengan penjelasan perubahan dan cara mengujinya.
+
+Saat melaporkan bug, sertakan langkah reproduksi dan halaman terkait. Jangan sertakan password, token, NIK, atau data pribadi.
+
+## Lisensi
+
+<!-- composer.json mencantumkan MIT. Pastikan lisensi disetujui pemilik project dan tambahkan file LICENSE resmi. -->
+
+Metadata `composer.json` mencantumkan lisensi **MIT**, tetapi repository belum memiliki berkas `LICENSE` resmi. Pastikan lisensi tersebut telah disetujui pemilik project dan tambahkan teks lisensi resmi sebelum distribusi.
+
+## Tim Pengembang dan Kontak
+
+- **Pengembang:** Mahasiswa KKN UNSUR 2025
+- **Instansi:** Universitas Suryakancana (UNSUR)
+
+- **Email:** [desasukamajucibeber@gmail.com](mailto:desasukamajucibeber@gmail.com)
+- **Telepon:** [0814-6091-9142](tel:+6281460919142)
+- **WhatsApp:** [Hubungi Pemerintah Desa](https://wa.me/6281460919142)
+- **Website:** [sukamajucibeber.com](https://sukamajucibeber.com)
+- **Repository:** [muisnryn/DesaSukamaju-FIlament](https://github.com/muisnryn/DesaSukamaju-FIlament)
+
+<!-- Periksa kembali nama tim, alamat kontak, dan username repository sebelum publikasi. -->
+
+## Ucapan Terima Kasih
+
+Terima kasih kepada:
+
+- Pemerintah Desa Sukamaju atas dukungan dan kerja sama.
+- Masyarakat Desa Sukamaju yang menjadi bagian dari pengembangan layanan digital desa.
+- Universitas Suryakancana (UNSUR) dan tim Mahasiswa KKN UNSUR 2025.
+- Komunitas Laravel, Filament, serta para kontributor open-source.
+
+<div align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=2E7D32&height=120&section=footer&animation=fadeIn" alt="Footer bergelombang berwarna hijau">
+  <p><a href="#top">⬆️ Kembali ke atas</a></p>
+</div>
