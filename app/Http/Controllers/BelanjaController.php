@@ -12,7 +12,7 @@ class BelanjaController extends Controller
      */
     public function umkm()
     {
-        $produks = Produk::with('umkm')->latest()->get();
+        $produks = Produk::with('umkm')->latest()->paginate(12);
         return view('belanja.index', compact('produks'));
     }
 

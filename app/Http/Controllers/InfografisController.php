@@ -73,11 +73,13 @@ class InfografisController extends Controller
      */
     public function bansos(Request $request)
     {
-        // Bansos biasanya menampilkan data tahun aktif/terbaru saja
-        $tahunTerbaru = Bansos::max('tahun') ?? date('Y');
-        
-        // Ambil rekap bansos per tahun terbaru
-        $bansos = Bansos::where('tahun', $tahunTerbaru)->get();
+        $years = Bansos::select('tahun')->distinct()->orderBy('tahun', 'desc')->pluck('tahun');
+        $requestedYear = (string) $request->input('tahun', '');
+        $currentYear = $years->first(
+            fn ($year) => (string) $year === $requestedYear
+        ) ?? $years->first() ?? date('Y');
+
+        $bansos = Bansos::where('tahun', $currentYear)->get();
 
         // Logika Pencarian Penerima
         $hasilCariBansos = null;
@@ -85,7 +87,7 @@ class InfografisController extends Controller
             $hasilCariBansos = PenerimaBansos::where('nik', $request->nik)->first();
         }
 
-        return view('infografis.bansos', compact('bansos', 'hasilCariBansos', 'tahunTerbaru'));
+        return view('infografis.bansos', compact('bansos', 'hasilCariBansos', 'years', 'currentYear'));
     }
 
     /**

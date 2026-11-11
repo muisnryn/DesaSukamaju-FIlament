@@ -55,11 +55,11 @@
                     {{-- Gambar Berita --}}
                     <div class="position-relative">
                         <a href="{{ route('berita.show', $item->slug) }}">
-                            <img src="{{ $item->gambar ? asset('storage/' . $item->gambar) : asset('images/no-image.jpg') }}" 
+                            <img src="{{ $item->gambar ? asset('storage/' . $item->gambar) : asset('images/no-image.svg') }}"
                                  class="card-img-top object-fit-cover" 
                                  alt="{{ $item->judul }}" 
                                  style="height: 220px;"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/600x400/e9ecef/6c757d?text=No+Image';">
+                                 onerror="this.onerror=null;this.src='{{ asset('images/no-image.svg') }}';">
                         </a>
                         {{-- Badge Tanggal (Overlay) --}}
                         <div class="position-absolute top-0 end-0 m-3">

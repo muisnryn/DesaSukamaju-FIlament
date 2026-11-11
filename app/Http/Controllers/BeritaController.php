@@ -20,7 +20,9 @@ class BeritaController extends Controller
     // Method untuk menampilkan detail berita
     public function show($slug)
     {
-        $berita = Berita::where('slug', $slug)->firstOrFail();
+        $berita = Berita::where('status', 'published')
+            ->where('slug', $slug)
+            ->firstOrFail();
         return view('berita.show', compact('berita'));
     }
 }

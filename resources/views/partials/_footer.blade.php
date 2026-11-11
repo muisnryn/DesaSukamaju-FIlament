@@ -62,10 +62,19 @@
                     Website Resmi Pemerintah Desa Sukamaju. Media komunikasi dan transparansi publik untuk mewujudkan desa yang mandiri dan sejahtera.
                 </p>
                 <div class="d-flex">
-                    <a href="#" class="social-btn"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="social-btn"><i class="bi bi-youtube"></i></a>
-                    <a href="#" class="social-btn"><i class="bi bi-whatsapp"></i></a>
+                    @if($contactSettings?->whatsappUrl())
+                        <a href="{{ $contactSettings->whatsappUrl() }}" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Hubungi Desa Sukamaju melalui WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                    @endif
+                    @foreach([
+                        'facebook_url' => ['bi-facebook', 'Facebook'],
+                        'instagram_url' => ['bi-instagram', 'Instagram'],
+                        'youtube_url' => ['bi-youtube', 'YouTube'],
+                        'tiktok_url' => ['bi-tiktok', 'TikTok'],
+                    ] as $field => [$icon, $label])
+                        @if(filled($contactSettings?->{$field}))
+                            <a href="{{ $contactSettings->{$field} }}" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Kunjungi {{ $label }} Desa Sukamaju"><i class="bi {{ $icon }}"></i></a>
+                        @endif
+                    @endforeach
                 </div>
             </div>
 
@@ -82,30 +91,36 @@
             {{-- Kolom 3: Layanan --}}
             <div class="col-lg-2 col-md-6">
                 <h5 class="footer-title">Layanan</h5>
-                
+
                 {{-- LINK CEK BANSOS DIPERBAIKI DI SINI --}}
                 <a href="{{ route('infografis.bansos') }}" class="footer-link">Cek Bansos</a>
-                
-                <a href="#" class="footer-link">Informasi Publik</a>
+
+                <a href="{{ route('infografis.index') }}" class="footer-link">Informasi Publik</a>
                 <a href="/admin" class="footer-link">Login Admin</a>
             </div>
 
             {{-- Kolom 4: Kontak --}}
-            <div class="col-lg-4 col-md-6" id="hubungi-kami"> 
+            <div class="col-lg-4 col-md-6" id="hubungi-kami">
                 <h5 class="footer-title">Hubungi Kami</h5>
                 <ul class="list-unstyled footer-contact">
-                    <li class="mb-3 d-flex text-start">
-                        <i class="bi bi-geo-alt-fill mt-1"></i>
-                        <span>Sukamaju, Kec. Cibeber, Kabupaten Cianjur, Jawa Barat 43262</span>
-                    </li>
-                    <li class="mb-3 d-flex">
-                        <i class="bi bi-envelope-fill mt-1"></i>
-                        <span>sukamajucibeber@gmail.com</span>
-                    </li>
-                    <li class="mb-3 d-flex">
-                        <i class="bi bi-telephone-fill mt-1"></i>
-                        <span>0831-1274-0004</span>
-                    </li>
+                    @if(filled($contactSettings?->address))
+                        <li class="mb-3 d-flex text-start">
+                            <i class="bi bi-geo-alt-fill mt-1"></i>
+                            <span>{{ $contactSettings->address }}</span>
+                        </li>
+                    @endif
+                    @if(filled($contactSettings?->email))
+                        <li class="mb-3 d-flex">
+                            <i class="bi bi-envelope-fill mt-1"></i>
+                            <a class="text-reset" href="mailto:{{ $contactSettings->email }}">{{ $contactSettings->email }}</a>
+                        </li>
+                    @endif
+                    @if(filled($contactSettings?->phone))
+                        <li class="mb-3 d-flex">
+                            <i class="bi bi-telephone-fill mt-1"></i>
+                            <a class="text-reset" href="{{ $contactSettings->phoneUrl() }}">{{ $contactSettings->phone }}</a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </div>

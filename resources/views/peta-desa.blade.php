@@ -88,11 +88,16 @@
         padding: 20px;
         color: #6c757d;
     }
+    @media (max-width: 575.98px) {
+        .map-listing-wrapper { padding: 24px 12px; }
+        .map-column, #map { min-height: 400px; }
+        .listing-column { max-height: 400px; }
+    }
 </style>
 @endpush
 
 @section('content')
-<main class="map-listing-wrapper">
+<div class="map-listing-wrapper">
     <div class="map-listing-container">
         <!-- Kolom Peta -->
         <div class="map-column">
@@ -118,7 +123,7 @@
             </ul>
         </div>
     </div>
-</main>
+</div>
 @endsection
 
 @push('scripts')
@@ -169,4 +174,3 @@
     });
 </script>
 @endpush
-

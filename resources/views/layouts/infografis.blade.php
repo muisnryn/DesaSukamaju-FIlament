@@ -18,6 +18,13 @@
     .nav-button.active { color: #008000; border-bottom-color: #008000; }
     .content-section { background-color: #fff; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
     .section-title { font-size: 1.75rem; color: #2c3e50; margin-bottom: 1.5rem; }
+    @media (max-width: 575.98px) {
+        .infografis-container { padding: 1rem; }
+        .content-section { padding: 1rem; }
+        .header-title h1 { font-size: 1.65rem; }
+        .nav-menu { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; gap: 0.5rem; }
+        .nav-button { font-size: 0.75rem; }
+    }
 </style>
 
 <div class="infografis-container">
@@ -56,11 +63,8 @@
         </div>
     </div>
 
-    <main class="content-section">
+    <div class="content-section">
         @yield('infografis_content')
-    </main>
+    </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-@stack('scripts')
 @endsection
-

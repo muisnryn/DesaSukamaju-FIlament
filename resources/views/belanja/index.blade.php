@@ -61,11 +61,11 @@
                     {{-- Gambar Produk --}}
                     <div class="position-relative">
                         <a href="{{ route('produk.show', $produk) }}">
-                            <img src="{{ $produk->gambar_produk ? asset('storage/' . $produk->gambar_produk) : asset('images/no-image.jpg') }}" 
+                            <img src="{{ $produk->gambar_produk ? asset('storage/' . $produk->gambar_produk) : asset('images/no-image.svg') }}"
                                  class="card-img-top object-fit-cover" 
                                  alt="{{ $produk->nama_produk }}" 
                                  style="height: 220px;"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/400x300/f0fdf4/198754?text=Produk+Desa';">
+                                 onerror="this.onerror=null;this.src='{{ asset('images/no-image.svg') }}';">
                         </a>
                         
                         {{-- Badge UMKM --}}
@@ -102,21 +102,20 @@
                                 Detail Produk
                             </a>
                             
-                            @if($produk->umkm && $produk->umkm->no_wa)
+                            @if($produk->umkm && $produk->umkm->nomor_whatsapp)
                                 @php
-                                    // Format Nomor WA (62...)
-                                    $no_wa = $produk->umkm->no_wa;
-                                    // Hapus karakter non-digit
+                                    $no_wa = $produk->umkm->nomor_whatsapp;
                                     $no_wa = preg_replace('/[^0-9]/', '', $no_wa);
-                                    
-                                    if(substr($no_wa, 0, 1) == '0') {
+                                    if (str_starts_with($no_wa, '0')) {
                                         $no_wa = '62' . substr($no_wa, 1);
+                                    } elseif (!str_starts_with($no_wa, '62')) {
+                                        $no_wa = '62' . $no_wa;
                                     }
                                     $pesan = "Halo, saya tertarik dengan produk {$produk->nama_produk} yang ada di website Desa.";
                                     $link_wa = "https://wa.me/{$no_wa}?text=" . urlencode($pesan);
                                 @endphp
                                 {{-- Tombol WA (Hijau Solid - Tetap) --}}
-                                <a href="{{ $link_wa }}" target="_blank" class="btn btn-success btn-sm rounded-pill fw-bold">
+                                <a href="{{ $link_wa }}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill fw-bold">
                                     <i class="bi bi-whatsapp me-1"></i> Beli Sekarang
                                 </a>
                             @endif

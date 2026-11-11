@@ -72,11 +72,11 @@
         <div class="col-lg-5 sticky-lg-top-custom">
             {{-- Menggunakan class custom .product-image-container untuk efek hover --}}
             <div class="card border-0 shadow-lg rounded-4 product-image-container bg-white">
-                <img src="{{ $produk->gambar_produk ? asset('storage/' . $produk->gambar_produk) : asset('images/no-image.jpg') }}" 
+                <img src="{{ $produk->gambar_produk ? asset('storage/' . $produk->gambar_produk) : asset('images/no-image.svg') }}"
                      class="w-100 object-fit-cover" 
                      alt="{{ $produk->nama_produk }}" 
                      style="height: 450px; /* Sedikit lebih tinggi */"
-                     onerror="this.onerror=null;this.src='https://placehold.co/600x600/f0fdf4/198754?text=Gambar+Produk';">
+                     onerror="this.onerror=null;this.src='{{ asset('images/no-image.svg') }}';">
             </div>
         </div>
 
@@ -118,9 +118,6 @@
                                     <i class="bi bi-patch-check-fill text-success ms-2 fs-5"></i>
                                 </span>
                             </h5>
-                            @if($produk->umkm->alamat)
-                                <small class="text-muted d-block mt-1"><i class="bi bi-geo-alt me-1"></i> {{ Str::limit($produk->umkm->alamat, 50) }}</small>
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -167,7 +164,7 @@
                     @endphp
 
                     {{-- TOMBOL UNGGULAN (Hijau, Besar, Bayangan) --}}
-                    <a href="{{ $link_wa }}" target="_blank" class="btn btn-success btn-lg rounded-pill fw-bold px-5 shadow py-3 flex-grow-1 flex-md-grow-0 d-flex align-items-center justify-content-center me-md-3 hover-lift">
+                    <a href="{{ $link_wa }}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-lg rounded-pill fw-bold px-5 shadow py-3 flex-grow-1 flex-md-grow-0 d-flex align-items-center justify-content-center me-md-3 hover-lift">
                         <i class="bi bi-whatsapp fs-4 me-2"></i> Pesan Sekarang
                     </a>
                 @else

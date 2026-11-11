@@ -185,7 +185,7 @@
 </header>
 
 {{-- KONTEN UTAMA --}}
-<main>
+<div>
     {{-- Section Sambutan --}}
     <section id="sambutan" class="py-5 bg-white scroll-margin-top">
         <div class="container py-4">
@@ -334,7 +334,7 @@
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden card-hover-effect">
                         <div class="position-relative">
-                            <img src="{{ asset('storage/' . $item->gambar) }}" class="card-img-top" style="height: 220px; object-fit: cover;" alt="{{ $item->judul }}">
+                            <img src="{{ $item->gambar ? asset('storage/' . $item->gambar) : asset('images/no-image.svg') }}" class="card-img-top" style="height: 220px; object-fit: cover;" alt="{{ $item->judul }}" onerror="this.onerror=null;this.src='{{ asset('images/no-image.svg') }}';">
                             <div class="bg-success text-white position-absolute top-0 start-0 px-3 py-1 m-3 rounded-pill small fw-bold shadow">
                                 Berita
                             </div>
@@ -349,7 +349,7 @@
                                 </a>
                             </h5>
                             <p class="card-text text-secondary small mb-4 flex-grow-1">
-                                {{ Str::limit(strip_tags($item->konten), 90) }}
+                                {{ Str::limit(strip_tags($item->isi), 90) }}
                             </p>
                         </div>
                     </div>
@@ -402,6 +402,6 @@
         </div>
     </section>
 
-</main>
+</div>
 
 @endsection

@@ -52,11 +52,11 @@
                 
                 {{-- Gambar Utama --}}
                 <div class="position-relative">
-                    <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/no-image.jpg') }}" 
+                    <img src="{{ $berita->gambar ? asset('storage/' . $berita->gambar) : asset('images/no-image.svg') }}"
                          class="w-100 object-fit-cover" 
                          alt="{{ $berita->judul }}" 
                          style="max-height: 500px;"
-                         onerror="this.onerror=null;this.src='https://placehold.co/800x500/e9ecef/6c757d?text=No+Image';">
+                         onerror="this.onerror=null;this.src='{{ asset('images/no-image.svg') }}';">
                     
                     {{-- Overlay Gradient untuk Judul (Opsional, atau judul di bawah gambar) --}}
                 </div>
@@ -91,17 +91,16 @@
                     <hr class="my-5">
 
                     {{-- Tombol Navigasi Bawah --}}
-                    <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-stretch align-items-sm-center gap-3">
                         <a href="{{ route('berita.index') }}" class="btn btn-outline-secondary rounded-pill px-4">
                             <i class="bi bi-arrow-left me-2"></i> Kembali ke Berita
                         </a>
                         
-                        {{-- Tombol Share (Opsional - Dummy Link) --}}
-                        <div class="d-flex gap-2">
+                        <div class="d-flex align-items-center gap-2">
                             <span class="text-muted small align-self-center me-1">Bagikan:</span>
-                            <a href="#" class="btn btn-sm btn-primary rounded-circle"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="btn btn-sm btn-success rounded-circle"><i class="bi bi-whatsapp"></i></a>
-                            <a href="#" class="btn btn-sm btn-info text-white rounded-circle"><i class="bi bi-twitter-x"></i></a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary rounded-circle" aria-label="Bagikan berita ke Facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="https://wa.me/?text={{ urlencode($berita->judul . ' ' . request()->fullUrl()) }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-success rounded-circle" aria-label="Bagikan berita melalui WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->fullUrl()) }}&text={{ urlencode($berita->judul) }}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-info text-white rounded-circle" aria-label="Bagikan berita ke X"><i class="bi bi-twitter-x"></i></a>
                         </div>
                     </div>
 

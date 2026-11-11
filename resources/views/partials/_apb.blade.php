@@ -1,9 +1,4 @@
 @php
-    // Helper format Rupiah
-    function formatRupiah($angka) {
-        return 'Rp' . number_format($angka, 0, ',', '.');
-    }
-
     // Ambil data dari variabel yang dikirim controller
     $pendapatan = $apbdes->total_pendapatan ?? 0;
     $belanja = $apbdes->total_belanja ?? 0;
@@ -21,7 +16,7 @@
                     <i class="bi bi-arrow-down-left-circle-fill text-success me-2 fs-5"></i>
                     <span class="text-secondary fw-bold small text-uppercase ls-1">Pendapatan Desa</span>
                 </div>
-                <h3 class="fw-bold text-dark mb-0">{{ formatRupiah($pendapatan) }}</h3>
+                <h3 class="fw-bold text-dark mb-0">Rp{{ number_format($pendapatan, 0, ',', '.') }}</h3>
             </div>
             <div class="text-end">
                 <span class="badge bg-success-subtle text-success rounded-pill px-3">{{ $apbdes->tahun ?? date('Y') }}</span>
@@ -39,7 +34,7 @@
                     <i class="bi bi-arrow-up-right-circle-fill text-warning me-2 fs-5"></i>
                     <span class="text-secondary fw-bold small text-uppercase ls-1">Belanja Desa</span>
                 </div>
-                <h3 class="fw-bold text-dark mb-0">{{ formatRupiah($belanja) }}</h3>
+                <h3 class="fw-bold text-dark mb-0">Rp{{ number_format($belanja, 0, ',', '.') }}</h3>
             </div>
             <div class="text-end">
                 <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-3">
@@ -60,9 +55,9 @@
         <div class="lh-sm text-secondary" style="font-size: 0.85rem;">
             <strong>Status Anggaran:</strong> 
             @if($pendapatan > $belanja)
-                Surplus sebesar <strong>{{ formatRupiah($pendapatan - $belanja) }}</strong>.
+                Surplus sebesar <strong>Rp{{ number_format($pendapatan - $belanja, 0, ',', '.') }}</strong>.
             @elseif($belanja > $pendapatan)
-                Defisit sebesar <strong>{{ formatRupiah($belanja - $pendapatan) }}</strong> ditutup oleh SiLPA tahun sebelumnya.
+                Defisit sebesar <strong>Rp{{ number_format($belanja - $pendapatan, 0, ',', '.') }}</strong> ditutup oleh SiLPA tahun sebelumnya.
             @else
                 Anggaran Berimbang (Defisit Rp0).
             @endif

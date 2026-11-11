@@ -90,7 +90,13 @@
                 <div class="card border-0 bg-white rounded-4 mt-4 p-4 shadow-sm text-center">
                     <div class="mb-3 text-success"><i class="bi bi-headset display-5"></i></div>
                     <h6 class="fw-bold mb-2">Butuh Bantuan?</h6>
-                    <a href="#hubungi-kami" class="btn btn-success btn-sm rounded-pill w-100 fw-bold mt-2">Hubungi Kami</a>
+                    @if($contactSettings?->whatsappUrl())
+                        <a href="{{ $contactSettings->whatsappUrl() }}" target="_blank" rel="noopener noreferrer" class="btn btn-success btn-sm rounded-pill w-100 fw-bold mt-2">Hubungi Kami</a>
+                    @elseif($contactSettings?->phoneUrl())
+                        <a href="{{ $contactSettings->phoneUrl() }}" class="btn btn-success btn-sm rounded-pill w-100 fw-bold mt-2">Hubungi Kami</a>
+                    @else
+                        <a href="#hubungi-kami" class="btn btn-success btn-sm rounded-pill w-100 fw-bold mt-2">Hubungi Kami</a>
+                    @endif
                 </div>
             </div>
         </div>

@@ -18,7 +18,10 @@ Route::get('/', function () {
     $aparaturs = Aparatur::orderBy('urutan', 'asc')->get();
     
     // 2. Berita Terbaru
-    $beritas = Berita::latest()->get(); 
+    $beritas = Berita::where('status', 'published')
+        ->latest()
+        ->take(3)
+        ->get();
 
     // 3. Data APBDes (Ambil tahun sekarang, jika tidak ada ambil tahun terakhir)
     $apbdes = Apbdes::where('tahun', date('Y'))->first();

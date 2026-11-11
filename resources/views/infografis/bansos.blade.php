@@ -100,7 +100,7 @@
     </div>
     
     <div class="card-body p-4 p-lg-5 bg-white">
-        <form action="{{ route('infografis.bansos') }}" method="GET" class="row g-3 justify-content-center">
+        <form id="bansos-search-form" action="{{ route('infografis.bansos') }}" method="GET" class="row g-3 justify-content-center">
             {{-- Kirim input tahun agar tidak reset ke default saat mencari --}}
             @if(isset($currentYear))
                 <input type="hidden" name="tahun" value="{{ $currentYear }}">
@@ -118,33 +118,102 @@
         </form>
 
         {{-- Hasil Pencarian --}}
+        <div id="hasil-pencarian" class="mt-5" aria-live="polite" aria-atomic="true">
         @if(request()->filled('nik'))
-            <div class="mt-5">
-                @if($hasilCariBansos)
-                    <div class="alert alert-success d-flex align-items-start gap-3 rounded-4 p-4 shadow-sm border-0 bg-success-subtle text-success-emphasis">
-                        <i class="bi bi-check-circle-fill fs-1 mt-1 text-success"></i>
-                        <div>
-                            <h4 class="fw-bold mb-2">Data Ditemukan!</h4>
-                            <p class="mb-0 fs-5">
-                                Atas nama <strong>{{ $hasilCariBansos->nama }}</strong><br>
-                                <span class="badge bg-success mt-2">Terdaftar sebagai Penerima Manfaat</span>
-                            </p>
-                            <hr class="border-success opacity-25">
-                            <small class="fw-bold"><i class="bi bi-geo-alt-fill"></i> {{ $hasilCariBansos->alamat }}</small>
-                        </div>
+            @if($hasilCariBansos)
+                <div class="alert alert-success d-flex align-items-start gap-3 rounded-4 p-4 shadow-sm border-0 bg-success-subtle text-success-emphasis">
+                    <i class="bi bi-check-circle-fill fs-1 mt-1 text-success"></i>
+                    <div>
+                        <h4 class="fw-bold mb-2">Data Ditemukan!</h4>
+                        <p class="mb-0 fs-5">
+                            Atas nama <strong>{{ $hasilCariBansos->nama }}</strong><br>
+                            <span class="badge bg-success mt-2">Terdaftar sebagai Penerima Manfaat</span>
+                        </p>
+                        <hr class="border-success opacity-25">
+                        <small class="fw-bold"><i class="bi bi-geo-alt-fill"></i> {{ $hasilCariBansos->alamat }}</small>
                     </div>
-                @else
-                    <div class="alert alert-danger d-flex align-items-center gap-3 rounded-4 p-4 shadow-sm border-0">
-                        <i class="bi bi-x-circle-fill fs-1 text-danger"></i>
-                        <div>
-                            <h5 class="fw-bold mb-1 text-danger">Data Tidak Ditemukan</h5>
-                            <p class="mb-0 text-muted">NIK <strong>{{ request('nik') }}</strong> tidak terdaftar dalam basis data penerima bantuan saat ini.</p>
-                        </div>
+                </div>
+            @else
+                <div class="alert alert-danger d-flex align-items-center gap-3 rounded-4 p-4 shadow-sm border-0">
+                    <i class="bi bi-x-circle-fill fs-1 text-danger"></i>
+                    <div>
+                        <h5 class="fw-bold mb-1 text-danger">Data Tidak Ditemukan</h5>
+                        <p class="mb-0 text-muted">NIK <strong>{{ request('nik') }}</strong> tidak terdaftar dalam basis data penerima bantuan saat ini.</p>
                     </div>
-                @endif
-            </div>
+                </div>
+            @endif
         @endif
+        </div>
     </div>
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('bansos-search-form');
+        const results = document.getElementById('hasil-pencarian');
+
+        if (!form || !results) {
+            return;
+        }
+
+        let activeRequest;
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            activeRequest?.abort();
+
+            const controller = new AbortController();
+            activeRequest = controller;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const url = new URL(form.action, window.location.href);
+            url.search = new URLSearchParams(new FormData(form)).toString();
+
+            submitButton.disabled = true;
+            form.setAttribute('aria-busy', 'true');
+            results.textContent = 'Sedang memeriksa data...';
+
+            try {
+                const response = await fetch(url, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                    signal: controller.signal,
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Pencarian gagal (${response.status}).`);
+                }
+
+                const page = new DOMParser().parseFromString(await response.text(), 'text/html');
+                const updatedResults = page.getElementById('hasil-pencarian');
+
+                if (!updatedResults) {
+                    throw new Error('Hasil pencarian tidak ditemukan pada respons server.');
+                }
+
+                results.innerHTML = updatedResults.innerHTML;
+                window.history.replaceState(null, '', url);
+            } catch (error) {
+                if (error.name === 'AbortError') {
+                    return;
+                }
+
+                results.innerHTML = '';
+                const message = document.createElement('div');
+                message.className = 'alert alert-danger';
+                message.setAttribute('role', 'alert');
+                message.textContent = 'Pencarian tidak dapat dilakukan. Silakan coba kembali.';
+                results.append(message);
+                console.error(error);
+            } finally {
+                if (activeRequest === controller) {
+                    activeRequest = null;
+                    submitButton.disabled = false;
+                    form.removeAttribute('aria-busy');
+                }
+            }
+        });
+    });
+</script>
+@endpush
