@@ -23,13 +23,13 @@
                 @endphp
 
                 <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="card card-struktur border-0 shadow-sm text-center h-100 bg-white">
+                    <div class="card card-struktur border-0 shadow-sm text-center bg-white">
                         <div class="position-relative">
                             <img src="{{ $orang->foto ? asset('storage/' . $orang->foto) : 'https://ui-avatars.com/api/?name='.urlencode($orang->nama).'&background=008000&color=fff' }}"
                                  class="card-img-top shadow-sm border border-white"
                                  alt="{{ $orang->nama }}">
                         </div>
-                        <div class="card-body d-flex flex-column">
+                        <div class="card-body">
                             <h5 class="fw-bold mb-1 text-dark">{{ $orang->nama }}</h5>
                             <p class="text-success fw-medium small text-uppercase mb-0" style="letter-spacing: 1px;">
                                 {{ $orang->jabatan }}
