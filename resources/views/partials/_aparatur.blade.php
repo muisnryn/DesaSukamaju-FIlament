@@ -35,23 +35,63 @@
                                 {{ $orang->jabatan }}
                             </p>
 
-                            @if(count($daftarJobdesk) > 0)
-                                <div class="jobdesk-wrapper mt-3 pt-3 border-top text-start">
-                                    <span class="jobdesk-title d-block text-uppercase fw-semibold text-muted mb-2">
-                                        <i class="bi bi-list-task me-1 text-success"></i>Tugas Pokok
-                                    </span>
-                                    <ul class="list-unstyled mb-0 jobdesk-list">
-                                        @foreach($daftarJobdesk as $tugas)
-                                            <li class="d-flex align-items-start gap-2">
-                                                <i class="bi bi-check2-circle text-success flex-shrink-0"></i>
-                                                <span>{{ $tugas }}</span>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
+                            <div class="mt-auto pt-3">
+                                @if(count($daftarJobdesk) > 0)
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline-success btn-sm rounded-pill px-3"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#jobdeskModal{{ $orang->id }}"
+                                    >
+                                        <i class="bi bi-list-task me-1"></i>
+                                        Lihat {{ count($daftarJobdesk) }} tugas pokok
+                                    </button>
+                                @else
+                                    <span class="small text-muted">Jobdesk belum tersedia</span>
+                                @endif
+                            </div>
                         </div>
                     </div>
+
+                    @if(count($daftarJobdesk) > 0)
+                        <div
+                            class="modal fade"
+                            id="jobdeskModal{{ $orang->id }}"
+                            tabindex="-1"
+                            aria-labelledby="jobdeskModalLabel{{ $orang->id }}"
+                            aria-hidden="true"
+                        >
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content border-0 rounded-4 shadow">
+                                    <div class="modal-header border-0 pb-0">
+                                        <div>
+                                            <span class="small text-success text-uppercase fw-semibold">Tugas Pokok</span>
+                                            <h5 class="modal-title fw-bold text-dark mt-1" id="jobdeskModalLabel{{ $orang->id }}">
+                                                {{ $orang->nama }}
+                                            </h5>
+                                            <p class="text-muted small mb-0">{{ $orang->jabatan }}</p>
+                                        </div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                    </div>
+                                    <div class="modal-body pt-3">
+                                        <ul class="list-unstyled mb-0 jobdesk-list">
+                                            @foreach($daftarJobdesk as $tugas)
+                                                <li class="d-flex align-items-start gap-2">
+                                                    <i class="bi bi-check2-circle text-success flex-shrink-0"></i>
+                                                    <span>{{ $tugas }}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer border-0 pt-0">
+                                        <button type="button" class="btn btn-success rounded-pill px-4" data-bs-dismiss="modal">
+                                            Tutup
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             @empty
                 <div class="col-12 text-center py-4">
@@ -93,27 +133,24 @@
     }
     .card-struktur .card-body {
         padding-top: 65px;
-        padding-bottom: 30px;
+        padding-bottom: 24px;
     }
 
-    /* Styling daftar jobdesk aparatur */
-    .jobdesk-title {
-        font-size: 0.7rem;
-        letter-spacing: 0.6px;
+    .card-struktur h5 {
+        overflow-wrap: anywhere;
     }
+
     .jobdesk-list li {
-        font-size: 0.82rem;
+        font-size: 0.95rem;
         color: #555;
-        line-height: 1.45;
-        margin-bottom: 0.45rem;
-        overflow-wrap: break-word;
-        word-break: break-word;
+        line-height: 1.6;
+        margin-bottom: 0.8rem;
+        overflow-wrap: anywhere;
     }
     .jobdesk-list li:last-child {
         margin-bottom: 0;
     }
     .jobdesk-list li i {
-        margin-top: 2px;
-        font-size: 0.85rem;
+        margin-top: 4px;
     }
 </style>
