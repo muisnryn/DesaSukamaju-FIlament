@@ -10,18 +10,46 @@
 
         <div class="row g-4 justify-content-center">
             @forelse($aparaturs as $orang)
+                @php
+                    $daftarJobdesk = filled($orang->jobdesk)
+                        ? array_values(array_filter(
+                            array_map(
+                                fn ($baris) => trim(preg_replace('/^[-•*]\s*/', '', trim($baris))),
+                                preg_split('/\r\n|\r|\n/', $orang->jobdesk)
+                            ),
+                            fn ($baris) => $baris !== ''
+                        ))
+                        : [];
+                @endphp
+
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="card card-struktur border-0 shadow-sm text-center h-100 bg-white">
                         <div class="position-relative">
-                            <img src="{{ $orang->foto ? asset('storage/' . $orang->foto) : 'https://ui-avatars.com/api/?name='.urlencode($orang->nama).'&background=008000&color=fff' }}" 
-                                 class="card-img-top shadow-sm border border-white" 
+                            <img src="{{ $orang->foto ? asset('storage/' . $orang->foto) : 'https://ui-avatars.com/api/?name='.urlencode($orang->nama).'&background=008000&color=fff' }}"
+                                 class="card-img-top shadow-sm border border-white"
                                  alt="{{ $orang->nama }}">
                         </div>
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <h5 class="fw-bold mb-1 text-dark">{{ $orang->nama }}</h5>
                             <p class="text-success fw-medium small text-uppercase mb-0" style="letter-spacing: 1px;">
                                 {{ $orang->jabatan }}
                             </p>
+
+                            @if(count($daftarJobdesk) > 0)
+                                <div class="jobdesk-wrapper mt-3 pt-3 border-top text-start">
+                                    <span class="jobdesk-title d-block text-uppercase fw-semibold text-muted mb-2">
+                                        <i class="bi bi-list-task me-1 text-success"></i>Tugas Pokok
+                                    </span>
+                                    <ul class="list-unstyled mb-0 jobdesk-list">
+                                        @foreach($daftarJobdesk as $tugas)
+                                            <li class="d-flex align-items-start gap-2">
+                                                <i class="bi bi-check2-circle text-success flex-shrink-0"></i>
+                                                <span>{{ $tugas }}</span>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -44,7 +72,7 @@
         color: #555;
         line-height: 1.6;
     }
-    
+
     /* Perbaikan posisi foto agar presisi */
     .card-struktur {
         margin-top: 50px;
@@ -66,5 +94,26 @@
     .card-struktur .card-body {
         padding-top: 65px;
         padding-bottom: 30px;
+    }
+
+    /* Styling daftar jobdesk aparatur */
+    .jobdesk-title {
+        font-size: 0.7rem;
+        letter-spacing: 0.6px;
+    }
+    .jobdesk-list li {
+        font-size: 0.82rem;
+        color: #555;
+        line-height: 1.45;
+        margin-bottom: 0.45rem;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+    .jobdesk-list li:last-child {
+        margin-bottom: 0;
+    }
+    .jobdesk-list li i {
+        margin-top: 2px;
+        font-size: 0.85rem;
     }
 </style>

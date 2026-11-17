@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Aparatur;
 use App\Models\Bansos;
 use App\Models\Berita;
 use App\Models\ContactSetting;
@@ -37,6 +38,21 @@ class ExampleTest extends TestCase
         $this->get('/peta-desa')
             ->assertSee('leaflet.css', false)
             ->assertSee('leaflet.js', false);
+    }
+
+    public function test_profile_displays_aparatur_jobdesk_as_a_list(): void
+    {
+        Aparatur::create([
+            'nama' => 'Aparatur Contoh',
+            'jabatan' => 'Sekretaris Desa',
+            'jobdesk' => "- Mengelola administrasi desa\n- Melayani masyarakat",
+        ]);
+
+        $this->get('/profil')
+            ->assertOk()
+            ->assertSee('Tugas Pokok')
+            ->assertSee('Mengelola administrasi desa')
+            ->assertSee('Melayani masyarakat');
     }
 
     public function test_homepage_and_news_details_only_expose_published_news(): void
