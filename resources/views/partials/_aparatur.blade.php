@@ -35,7 +35,7 @@
                                 {{ $orang->jabatan }}
                             </p>
 
-                            <div class="mt-auto pt-3">
+                            <div class="mt-3">
                                 @if(count($daftarJobdesk) > 0)
                                     <button
                                         type="button"
